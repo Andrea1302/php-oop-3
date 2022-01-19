@@ -140,7 +140,113 @@
      } catch (Exception $e){
         echo $e -> getMessage();
      }
+     echo "<br><br><br> ------------------------------------------------------------------<br><br><br>";
 
+    //  **
+    //  *      Definire classe Computer:
+    //  *          ATTRIBUTI:
+    //  *          - codice univoco
+    //  *          - modello
+    //  *          - prezzo
+    //  *          - marca
+    //  * 
+    //  *          METODI:
+    //  *          - costruttore che accetta codice univoco e prezzo
+    //  *          - proprieta' getter/setter per tutte le variabili d'istanza
+    //  *          - printMe: che stampa se stesso (come quella vista a lezione)
+    //  *          - toString: "marca modello: prezzo [codice univoco]"
+    //  * 
+    //  *          ECCEZIONI:
+    //  *          - codice univoco: deve essere composto da esattamente 6 cifre (no altri caratteri)
+    //  *          - marca e modello: devono essere costituiti da stringhe tra i 3 e i 20 caratteri
+    //  *          - prezzo: deve essere un valore intero compreso tra 0 e 2000
+    //  * 
+    //  *      Testare la classe appena definita con tutte le casistiche interessanti per verificare
+    //  *      il corretto funzionamento dell'algoritmo
+
+    class computer{
+        private $idComputer;
+        private $modello;
+        private $prezzo;
+        private $marca;
+
+        public function __construct($idComputer,$prezzo){
+            $this -> setIdComputer($idComputer);
+            $this -> setPrezzo($prezzo);
+        }
+
+        public function setIdComputer($idComputer){
+
+            if(strlen($idComputer) === 6 ){
+                $this -> idComputer = $idComputer;
+            } else {
+                throw new Exception("L' id deve essere di 6 caratteri");
+            }
+        }
+
+        public function getIdComputer(){
+           return $this -> idComputer;
+        }
+
+        public function setPrezzo($prezzo){
+            if ( $prezzo < 0 || $prezzo > 2000 ){
+                throw new Exception("Prezzo da inserire tra 0 e 2000");
+            } else {
+                $this -> prezzo = $prezzo;
+            }
+        }
+
+        public function getPrezzo(){
+           return $this -> prezzo;
+        }
+
+        public function setModello($modello){
+            if ( strlen($modello) >= 3 && strlen($modello) <= 20){
+                $this -> modello = $modello;
+            } else {
+                throw new Exception("Il modello deve essere tra i 3 e i 20 caratteri");
+            }
+        }
+
+        public function getModello(){
+          return  $this -> modello;
+        }
+
+        public function setMarca($marca){
+            if ( strlen($marca) >= 3 && strlen($marca) <= 20){
+                $this -> marca = $marca;
+            } else {
+                throw new Exception("La marca deve essere tra i 3 e i 20 caratteri");
+            }
+        }
+
+        public function getMarca(){
+            return $this -> marca;
+        }
+
+        public function __toString(){
+            return $this -> getMarca() . " " . $this -> getModello() . ": " . $this -> getPrezzo() . "  [ ". $this -> getIdComputer() . " ]" ;
+        }
+
+        public function printMe(){
+            echo $this;
+        }
+
+    }
+
+
+    try{
+        $Computer1 = new computer("103001","2000€");
+        $Computer1 -> setModello("Mac");
+        $Computer1 -> setMarca("Apple");
+    
+        $Computer1 -> printMe();
+    } catch (Exception $e){
+        echo $e -> getMessage();
+    }
+    
+;
+    
 ?>
 </body>
 </html>
